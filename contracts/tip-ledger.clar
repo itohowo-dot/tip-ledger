@@ -46,3 +46,6 @@
 
 ;; Total number of tips processed by TipLedger
 (define-data-var total-tips-sent uint u0)
+
+;; Total volume of STX tipped through the protocol
+(define-data-var total-volume uint u0)
