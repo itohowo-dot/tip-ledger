@@ -194,3 +194,5 @@
 ;; get-platform-stats
 ;; Returns overall TipLedger protocol statistics
 (define-read-only (get-platform-stats)
+    {
+        total-tips: (var-get total-tips-sent),
