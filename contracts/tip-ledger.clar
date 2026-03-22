@@ -52,3 +52,10 @@
 
 ;; Total platform fees accumulated
 (define-data-var platform-fees uint u0)
+
+;; ---------------------------------------------------------
+;; Data Maps
+;; ---------------------------------------------------------
+
+;; Ledger of all tips recorded on-chain
+(define-map tips
