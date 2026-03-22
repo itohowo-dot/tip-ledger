@@ -136,3 +136,8 @@
             true
             (try! (stx-transfer? fee tx-sender contract-owner))
         )
+
+        ;; -------------------------
+        ;; Record Tip in Ledger
+        ;; -------------------------
+        (map-set tips
