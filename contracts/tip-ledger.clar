@@ -204,3 +204,5 @@
 ;; get-user-sent-total
 ;; Returns total STX sent by a user
 (define-read-only (get-user-sent-total (user principal))
+    (ok (default-to u0 (map-get? user-total-sent user)))
+)
