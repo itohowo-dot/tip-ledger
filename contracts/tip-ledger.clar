@@ -27,3 +27,59 @@
 
 (define-constant contract-owner tx-sender)
 (define-constant err-owner-only (err u100))
+(define-constant err-invalid-amount (err u101))
+(define-constant err-insufficient-balance (err u102))
+(define-constant err-transfer-failed (err u103))
+(define-constant err-not-found (err u104))
+
+;; ---------------------------------------------------------
+;; Fee Configuration
+;; ---------------------------------------------------------
+
+;; 0.5% platform fee (50 basis points)
+(define-constant fee-basis-points u50)
+(define-constant basis-points-divisor u10000)
+
+;; ---------------------------------------------------------
+;; Global State Variables
+;; ---------------------------------------------------------
+
+;; Total number of tips processed by TipLedger
+(define-data-var total-tips-sent uint u0)
+
+;; Total volume of STX tipped through the protocol
+(define-data-var total-volume uint u0)
+
+;; Total platform fees accumulated
+(define-data-var platform-fees uint u0)
+
+;; ---------------------------------------------------------
+;; Data Maps
+;; ---------------------------------------------------------
+
+;; Ledger of all tips recorded on-chain
+(define-map tips
+    { tip-id: uint }
+    {
+        sender: principal,
+        recipient: principal,
+        amount: uint,
+        message: (string-utf8 280),
+        tip-height: uint
+    }
+)
+
+;; User-level statistics tracking
+(define-map user-tip-count principal uint)
+(define-map user-received-count principal uint)
+(define-map user-total-sent principal uint)
+(define-map user-total-received principal uint)
+
+;; ---------------------------------------------------------
+;; Private Functions
+;; ---------------------------------------------------------
+
+;; Calculates the platform fee based on basis points
+(define-private (calculate-fee (amount uint))
+    (/ (* amount fee-basis-points) basis-points-divisor)
+)
