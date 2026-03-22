@@ -200,3 +200,7 @@
         platform-fees: (var-get platform-fees)
     }
 )
+
+;; get-user-sent-total
+;; Returns total STX sent by a user
+(define-read-only (get-user-sent-total (user principal))
