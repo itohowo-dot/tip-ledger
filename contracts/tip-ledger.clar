@@ -177,3 +177,5 @@
 ;; get-tip
 ;; Retrieves a tip entry from the TipLedger by ID
 (define-read-only (get-tip (tip-id uint))
+    (map-get? tips { tip-id: tip-id })
+)
