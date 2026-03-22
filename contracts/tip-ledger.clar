@@ -83,3 +83,70 @@
 (define-private (calculate-fee (amount uint))
     (/ (* amount fee-basis-points) basis-points-divisor)
 )
+
+;; ---------------------------------------------------------
+;; Public Functions
+;; ---------------------------------------------------------
+
+;; send-tip
+;;
+;; Sends a micro-tip in STX from the caller to a recipient.
+;; Optionally includes a message.
+;;
+;; Behavior:
+;; - Deducts a small platform fee (unless sender is contract owner)
+;; - Transfers net amount to recipient
+;; - Transfers fee to contract owner
+;; - Records the tip in the TipLedger
+;; - Updates user and global statistics
+;;
+;; Returns:
+;; - (ok tip-id) on success
+;; - error code on failure
+(define-public (reward-tip (recipient principal) (amount uint) (message (string-utf8 280)))
+    (let
+        (
+            (tip-id (var-get total-tips-sent))
+            (fee (calculate-fee amount))
+            (is-owner (is-eq tx-sender contract-owner))
+            (net-amount (if is-owner amount (- amount fee)))
+
+            ;; Load existing user stats
+            (sender-sent (default-to u0 (map-get? user-total-sent tx-sender)))
+            (recipient-received (default-to u0 (map-get? user-total-received recipient)))
+            (sender-count (default-to u0 (map-get? user-tip-count tx-sender)))
+            (recipient-count (default-to u0 (map-get? user-received-count recipient)))
+        )
+
+        ;; -------------------------
+        ;; Validation
+        ;; -------------------------
+        (asserts! (> amount u0) err-invalid-amount)
+        (asserts! (not (is-eq tx-sender recipient)) err-invalid-amount)
+
+        ;; -------------------------
+        ;; Transfers
+        ;; -------------------------
+
+        ;; Send net tip to recipient
+        (try! (stx-transfer? net-amount tx-sender recipient))
+
+        ;; Send platform fee (skip if owner)
+        (if is-owner
+            true
+            (try! (stx-transfer? fee tx-sender contract-owner))
+        )
+
+        ;; -------------------------
+        ;; Record Tip in Ledger
+        ;; -------------------------
+        (map-set tips
+            { tip-id: tip-id }
+            {
+                sender: tx-sender,
+                recipient: recipient,
+                amount: amount,
+                message: message,
+                tip-height: stacks-block-height
+            }
+        )
