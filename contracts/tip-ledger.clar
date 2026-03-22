@@ -216,3 +216,5 @@
 ;; get-fee-for-amount
 ;; Utility function to calculate fee for a given amount
 (define-read-only (get-fee-for-amount (amount uint))
+    (ok (calculate-fee amount))
+)
