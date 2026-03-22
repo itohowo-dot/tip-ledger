@@ -150,3 +150,71 @@
                 tip-height: stacks-block-height
             }
         )
+
+        ;; -------------------------
+        ;; Update User Statistics
+        ;; -------------------------
+        (map-set user-total-sent tx-sender (+ sender-sent amount))
+        (map-set user-total-received recipient (+ recipient-received amount))
+        (map-set user-tip-count tx-sender (+ sender-count u1))
+        (map-set user-received-count recipient (+ recipient-count u1))
+
+        ;; -------------------------
+        ;; Update Global Statistics
+        ;; -------------------------
+        (var-set total-tips-sent (+ tip-id u1))
+        (var-set total-volume (+ (var-get total-volume) amount))
+        (var-set platform-fees (+ (var-get platform-fees) fee))
+
+        (ok tip-id)
+    )
+)
+
+;; ---------------------------------------------------------
+;; Read-Only Functions
+;; ---------------------------------------------------------
+
+;; get-tip
+;; Retrieves a tip entry from the TipLedger by ID
+(define-read-only (get-tip (tip-id uint))
+    (map-get? tips { tip-id: tip-id })
+)
+
+;; get-user-stats
+;; Returns tipping statistics for a given user
+(define-read-only (get-user-stats (user principal))
+    {
+        tips-sent: (default-to u0 (map-get? user-tip-count user)),
+        tips-received: (default-to u0 (map-get? user-received-count user)),
+        total-sent: (default-to u0 (map-get? user-total-sent user)),
+        total-received: (default-to u0 (map-get? user-total-received user))
+    }
+)
+
+;; get-platform-stats
+;; Returns overall TipLedger protocol statistics
+(define-read-only (get-platform-stats)
+    {
+        total-tips: (var-get total-tips-sent),
+        total-volume: (var-get total-volume),
+        platform-fees: (var-get platform-fees)
+    }
+)
+
+;; get-user-sent-total
+;; Returns total STX sent by a user
+(define-read-only (get-user-sent-total (user principal))
+    (ok (default-to u0 (map-get? user-total-sent user)))
+)
+
+;; get-user-received-total
+;; Returns total STX received by a user
+(define-read-only (get-user-received-total (user principal))
+    (ok (default-to u0 (map-get? user-total-received user)))
+)
+
+;; get-fee-for-amount
+;; Utility function to calculate fee for a given amount
+(define-read-only (get-fee-for-amount (amount uint))
+    (ok (calculate-fee amount))
+)
