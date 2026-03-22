@@ -29,4 +29,5 @@
 (define-constant err-owner-only (err u100))
 (define-constant err-invalid-amount (err u101))
 (define-constant err-insufficient-balance (err u102))
+(define-constant err-transfer-failed (err u103))
 (define-constant err-not-found (err u104))
