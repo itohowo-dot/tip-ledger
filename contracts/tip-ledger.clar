@@ -123,10 +123,13 @@
         ;; -------------------------
         (asserts! (> amount u0) err-invalid-amount)
         (asserts! (not (is-eq tx-sender recipient)) err-invalid-amount)
-        
+
         ;; -------------------------
         ;; Transfers
         ;; -------------------------
 
         ;; Send net tip to recipient
         (try! (stx-transfer? net-amount tx-sender recipient))
+
+        ;; Send platform fee (skip if owner)
+        (if is-owner
