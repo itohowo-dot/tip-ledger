@@ -142,3 +142,5 @@
         ;; -------------------------
         (map-set tips
             { tip-id: tip-id }
+            {
+                sender: tx-sender,
