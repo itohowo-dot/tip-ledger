@@ -183,3 +183,5 @@
 ;; get-user-stats
 ;; Returns tipping statistics for a given user
 (define-read-only (get-user-stats (user principal))
+    {
+        tips-sent: (default-to u0 (map-get? user-tip-count user)),
