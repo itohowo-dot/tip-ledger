@@ -167,3 +167,13 @@
         (var-set platform-fees (+ (var-get platform-fees) fee))
 
         (ok tip-id)
+    )
+)
+
+;; ---------------------------------------------------------
+;; Read-Only Functions
+;; ---------------------------------------------------------
+
+;; get-tip
+;; Retrieves a tip entry from the TipLedger by ID
+(define-read-only (get-tip (tip-id uint))
