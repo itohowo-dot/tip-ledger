@@ -68,3 +68,6 @@
         tip-height: uint
     }
 )
+
+;; User-level statistics tracking
+(define-map user-tip-count principal uint)
