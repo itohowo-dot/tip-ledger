@@ -83,3 +83,24 @@
 (define-private (calculate-fee (amount uint))
     (/ (* amount fee-basis-points) basis-points-divisor)
 )
+
+;; ---------------------------------------------------------
+;; Public Functions
+;; ---------------------------------------------------------
+
+;; send-tip
+;;
+;; Sends a micro-tip in STX from the caller to a recipient.
+;; Optionally includes a message.
+;;
+;; Behavior:
+;; - Deducts a small platform fee (unless sender is contract owner)
+;; - Transfers net amount to recipient
+;; - Transfers fee to contract owner
+;; - Records the tip in the TipLedger
+;; - Updates user and global statistics
+;;
+;; Returns:
+;; - (ok tip-id) on success
+;; - error code on failure
+(define-public (reward-tip (recipient principal) (amount uint) (message (string-utf8 280)))
