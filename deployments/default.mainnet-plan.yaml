@@ -1,0 +1,18 @@
+---
+id: 0
+name: Mainnet deployment
+network: mainnet
+stacks-node: "https://api.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoin.blockstack.com:8332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: tip-ledger
+            expected-sender: SPN6QHTXYKBNYNS6765BTECXRSPYKC7B0M5KADMW
+            cost: 71900
+            path: contracts/tip-ledger.clar
+            anchor-block-only: true
+            clarity-version: 4
+      epoch: "3.3"
