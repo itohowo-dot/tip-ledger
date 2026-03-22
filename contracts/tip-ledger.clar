@@ -31,3 +31,10 @@
 (define-constant err-insufficient-balance (err u102))
 (define-constant err-transfer-failed (err u103))
 (define-constant err-not-found (err u104))
+
+;; ---------------------------------------------------------
+;; Fee Configuration
+;; ---------------------------------------------------------
+
+;; 0.5% platform fee (50 basis points)
+(define-constant fee-basis-points u50)
