@@ -89,22 +89,6 @@ export function ActivityList({ tips, loading }: ActivityListProps) {
     );
   }
 
-  if (tips.length === 0) {
-    return (
-      <Card>
-        <CardContent className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted mb-4">
-            <MessageSquare className="h-7 w-7 text-muted-foreground" />
-          </div>
-          <h3 className="font-semibold text-lg mb-1">No tips yet</h3>
-          <p className="text-muted-foreground text-sm max-w-xs">
-            Be the first to send a tip! Connect your wallet and show appreciation to someone in the Stacks community.
-          </p>
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
     <div className="space-y-2">
       {tips.map((tip, i) => (
@@ -113,8 +97,7 @@ export function ActivityList({ tips, loading }: ActivityListProps) {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: i * 0.04 }}
-
-          >
+        >
           <Card className="hover:shadow-md hover:border-primary/20 transition-all duration-150 group">
             <CardContent className="p-4">
               <div className="flex items-center gap-3 flex-wrap">
@@ -131,3 +114,20 @@ export function ActivityList({ tips, loading }: ActivityListProps) {
                   {formatStx(microStxToStx(tip.amount))} STX
                 </span>
               </div>
+              {tip.message && (
+                <p className="mt-2 text-sm text-muted-foreground truncate pl-10">
+                  "{tip.message}"
+                </p>
+              )}
+              <div className="mt-2 flex items-center gap-3 text-[11px] text-muted-foreground pl-10">
+                <span>Tip #{tip.id}</span>
+                <span>Block {tip.tipHeight.toLocaleString()}</span>
+                <span className="ml-auto">{timeAgo(tip.timestamp)}</span>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
