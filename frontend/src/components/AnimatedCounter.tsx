@@ -10,3 +10,12 @@ export function AnimatedCounter({ value, duration = 1.2, formatFn }: AnimatedCou
   const motionValue = useMotionValue(0);
   const [display, setDisplay] = useState("0");
   const prevValue = useRef(0);
+
+  useEffect(() => {
+    const controls = animate(motionValue, value, {
+      duration,
+      ease: "easeOut",
+      onUpdate: (v) => {
+        setDisplay(formatFn ? formatFn(v) : v.toLocaleString("en-US", { maximumFractionDigits: 1 }));
+      },
+    });
