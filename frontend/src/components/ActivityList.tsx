@@ -113,3 +113,21 @@ export function ActivityList({ tips, loading }: ActivityListProps) {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: i * 0.04 }}
+
+          >
+          <Card className="hover:shadow-md hover:border-primary/20 transition-all duration-150 group">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3 flex-wrap">
+                <Link to={`/profile/${tip.sender}`} className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+                  <Identicon principal={tip.sender} size={28} />
+                </Link>
+                <CopyablePrincipal principal={tip.sender} />
+                <ArrowRight className="h-3 w-3 text-muted-foreground shrink-0" />
+                <Link to={`/profile/${tip.recipient}`} className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
+                  <Identicon principal={tip.recipient} size={28} />
+                </Link>
+                <CopyablePrincipal principal={tip.recipient} />
+                <span className="ml-auto inline-flex items-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 font-mono text-sm font-semibold whitespace-nowrap">
+                  {formatStx(microStxToStx(tip.amount))} STX
+                </span>
+              </div>
