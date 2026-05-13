@@ -29,3 +29,10 @@ function CopyablePrincipal({ principal }: { principal: string }) {
     toast({ title: "Address copied", description: truncatePrincipal(principal, 8) });
     setTimeout(() => setCopied(false), 1500);
   }
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground hover:text-foreground transition-colors group/copy"
+      title="Click to copy"
+    >
