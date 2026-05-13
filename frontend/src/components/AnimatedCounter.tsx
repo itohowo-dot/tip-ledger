@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+
 interface AnimatedCounterProps {
   value: number;
   duration?: number;
@@ -19,3 +20,9 @@ export function AnimatedCounter({ value, duration = 1.2, formatFn }: AnimatedCou
         setDisplay(formatFn ? formatFn(v) : v.toLocaleString("en-US", { maximumFractionDigits: 1 }));
       },
     });
+    prevValue.current = value;
+    return () => controls.stop();
+  }, [value, duration, formatFn, motionValue]);
+
+  return <span>{display}</span>;
+}
