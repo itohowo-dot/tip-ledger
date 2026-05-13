@@ -50,3 +50,25 @@ interface ActivityListProps {
   tips: Tip[];
   loading?: boolean;
 }
+
+export function ActivityList({ tips, loading }: ActivityListProps) {
+  if (loading) {
+    return (
+      <div className="space-y-3">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Card key={i}>
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <Skeleton className="h-8 w-8 rounded-full" />
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-4 w-4" />
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="ml-auto h-5 w-16" />
+              </div>
+              <Skeleton className="mt-2 h-3 w-48" />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    );
+  }
