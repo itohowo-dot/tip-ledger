@@ -19,3 +19,6 @@ function timeAgo(ts: number): string {
   if (days < 7) return `${days}d ago`;
   return new Date(ts).toLocaleDateString();
 }
+
+function CopyablePrincipal({ principal }: { principal: string }) {
+  const [copied, setCopied] = useState(false);
