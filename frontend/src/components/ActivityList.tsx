@@ -22,3 +22,10 @@ function timeAgo(ts: number): string {
 
 function CopyablePrincipal({ principal }: { principal: string }) {
   const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(principal);
+    setCopied(true);
+    toast({ title: "Address copied", description: truncatePrincipal(principal, 8) });
+    setTimeout(() => setCopied(false), 1500);
+  }
