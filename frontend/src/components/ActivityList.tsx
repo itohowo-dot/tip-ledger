@@ -88,3 +88,19 @@ export function ActivityList({ tips, loading }: ActivityListProps) {
       </Card>
     );
   }
+
+  if (tips.length === 0) {
+    return (
+      <Card>
+        <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted mb-4">
+            <MessageSquare className="h-7 w-7 text-muted-foreground" />
+          </div>
+          <h3 className="font-semibold text-lg mb-1">No tips yet</h3>
+          <p className="text-muted-foreground text-sm max-w-xs">
+            Be the first to send a tip! Connect your wallet and show appreciation to someone in the Stacks community.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
