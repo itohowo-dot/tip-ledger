@@ -5,3 +5,8 @@ interface AnimatedCounterProps {
   duration?: number;
   formatFn?: (n: number) => string;
 }
+
+export function AnimatedCounter({ value, duration = 1.2, formatFn }: AnimatedCounterProps) {
+  const motionValue = useMotionValue(0);
+  const [display, setDisplay] = useState("0");
+  const prevValue = useRef(0);
