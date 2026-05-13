@@ -45,3 +45,8 @@ function CopyablePrincipal({ principal }: { principal: string }) {
     </button>
   );
 }
+
+interface ActivityListProps {
+  tips: Tip[];
+  loading?: boolean;
+}
