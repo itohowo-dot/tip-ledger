@@ -36,3 +36,12 @@ function CopyablePrincipal({ principal }: { principal: string }) {
       className="inline-flex items-center gap-1 font-mono text-xs text-muted-foreground hover:text-foreground transition-colors group/copy"
       title="Click to copy"
     >
+      <span>{truncatePrincipal(principal)}</span>
+      {copied ? (
+        <Check className="h-3 w-3 text-green-500" />
+      ) : (
+        <Copy className="h-3 w-3 opacity-0 group-hover/copy:opacity-60 transition-opacity" />
+      )}
+    </button>
+  );
+}
