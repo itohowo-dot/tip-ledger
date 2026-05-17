@@ -9,3 +9,9 @@ interface FeePreviewProps {
 export function FeePreview({ amount }: FeePreviewProps) {
   const [fee, setFee] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!amount || amount <= 0) {
+      setFee(null);
+      return;
+    }
