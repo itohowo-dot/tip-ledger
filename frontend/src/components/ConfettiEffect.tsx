@@ -29,3 +29,18 @@ export function ConfettiEffect({ active }: ConfettiEffectProps) {
       w: number; h: number; color: string; rotation: number; vr: number;
       life: number;
     }> = [];
+
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: canvas.width / 2 + (Math.random() - 0.5) * 100,
+        y: canvas.height / 2,
+        vx: (Math.random() - 0.5) * 12,
+        vy: -Math.random() * 14 - 4,
+        w: Math.random() * 8 + 4,
+        h: Math.random() * 6 + 2,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * Math.PI * 2,
+        vr: (Math.random() - 0.5) * 0.3,
+        life: 1,
+      });
+    }
