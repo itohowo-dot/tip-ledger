@@ -71,3 +71,5 @@ export function ConfettiEffect({ active }: ConfettiEffectProps) {
     animId = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(animId);
   }, [active]);
+
+  if (!active) return null;
