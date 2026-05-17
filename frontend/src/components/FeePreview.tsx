@@ -24,3 +24,5 @@ export function FeePreview({ amount }: FeePreviewProps) {
     }, 300); // debounce
     return () => clearTimeout(timer);
   }, [amount]);
+
+  if (!amount || amount <= 0) return null;
