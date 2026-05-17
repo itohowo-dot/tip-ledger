@@ -15,3 +15,12 @@ export function FeePreview({ amount }: FeePreviewProps) {
       setFee(null);
       return;
     }
+    setLoading(true);
+    const timer = setTimeout(() => {
+      getFeeForAmount(amount).then((f) => {
+        setFee(f);
+        setLoading(false);
+      });
+    }, 300); // debounce
+    return () => clearTimeout(timer);
+  }, [amount]);
