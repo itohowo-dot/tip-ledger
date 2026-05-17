@@ -44,3 +44,27 @@ export function ConfettiEffect({ active }: ConfettiEffectProps) {
         life: 1,
       });
     }
+
+    let animId: number;
+    function frame() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.4;
+        p.vx *= 0.98;
+        p.rotation += p.vr;
+        p.life -= 0.012;
+        if (p.life <= 0) continue;
+        alive = true;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        ctx.restore();
+      }
+      if (alive) animId = requestAnimationFrame(frame);
+    }
