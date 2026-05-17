@@ -9,3 +9,8 @@ export function ConfettiEffect({ active }: ConfettiEffectProps) {
 
   useEffect(() => {
     if (!active || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d")!;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
