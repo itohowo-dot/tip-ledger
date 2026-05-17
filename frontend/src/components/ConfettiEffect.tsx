@@ -73,3 +73,12 @@ export function ConfettiEffect({ active }: ConfettiEffectProps) {
   }, [active]);
 
   if (!active) return null;
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 pointer-events-none z-50"
+      style={{ width: "100%", height: "100%" }}
+    />
+  );
+}
