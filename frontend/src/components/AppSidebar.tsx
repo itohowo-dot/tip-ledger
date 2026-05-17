@@ -22,3 +22,8 @@ const navItems = [
   { title: "Profile", url: "/profile", icon: User },
   { title: "Dashboard", url: "/dashboard", icon: BarChart3 },
 ];
+
+export function AppSidebar() {
+  const { state } = useSidebar();
+  const collapsed = state === "collapsed";
+  const location = useLocation();
