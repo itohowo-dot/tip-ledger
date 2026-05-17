@@ -27,3 +27,17 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 </div>
               )}
             </div>
+            <div className="flex items-center gap-1">
+              <ThemeToggle />
+              <WalletConnectButton />
+            </div>
+          </header>
+          <main className="flex-1 p-4 md:p-6 lg:p-8">
+            <div className="mx-auto max-w-[1440px]">{children}</div>
+          </main>
+          {isMobile && <MobileNav />}
+        </div>
+      </div>
+    </SidebarProvider>
+  );
+}
