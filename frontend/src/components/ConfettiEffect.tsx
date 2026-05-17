@@ -23,3 +23,9 @@ export function ConfettiEffect({ active }: ConfettiEffectProps) {
       "hsl(326, 80%, 55%)",
       "hsl(199, 89%, 48%)",
     ];
+
+    const particles: Array<{
+      x: number; y: number; vx: number; vy: number;
+      w: number; h: number; color: string; rotation: number; vr: number;
+      life: number;
+    }> = [];
