@@ -13,3 +13,12 @@ import {
   SidebarHeader,
   useSidebar,
 } from "@/components/ui/sidebar";
+
+const navItems = [
+  { title: "Home", url: "/", icon: Home },
+  { title: "Send Tip", url: "/send", icon: Send },
+  { title: "Activity", url: "/activity", icon: Activity },
+  { title: "Leaderboard", url: "/leaderboard", icon: Trophy },
+  { title: "Profile", url: "/profile", icon: User },
+  { title: "Dashboard", url: "/dashboard", icon: BarChart3 },
+];
