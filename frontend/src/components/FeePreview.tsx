@@ -5,3 +5,7 @@ import { Loader2 } from "lucide-react";
 interface FeePreviewProps {
   amount: number;
 }
+
+export function FeePreview({ amount }: FeePreviewProps) {
+  const [fee, setFee] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
